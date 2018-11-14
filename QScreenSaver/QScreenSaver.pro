@@ -26,10 +26,16 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    BubbleShape.cpp \
+    BubbleMovementManagment.cpp \
+    QBasedTimer.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    BubbleShape.h \
+    BubbleMovementManagment.h \
+    QBasedTimer.h
 
 FORMS += \
         mainwindow.ui
