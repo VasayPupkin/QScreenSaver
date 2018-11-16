@@ -31,21 +31,21 @@ struct Frame{
     //X-coordinate
     int _left;
     int _right;
+    //TODO create default operator =
 };
 
 class BubbleMovementManagment : public QObject
 {
     Q_OBJECT
 public:
-    explicit BubbleMovementManagment(const Frame &window_frame,
-                                     const int movement_interval,
+    explicit BubbleMovementManagment(const int movement_interval,
                                      QObject *parent = nullptr);
 
+    void Start();
 private:
     void CreateMovementTimer();
     BubblePtr CreateRndBubble();
     void CreateBubbleList();
-    void Start();
 
     static int GenerateRndValue(const int lower_bounde, const int upper_bounde);
 
@@ -56,6 +56,7 @@ signals:
 
 public slots:
     void RecalculateBubblesPositions();
+    void SetFrame(const Frame &win_frame);
 
 private:
     Frame _window_frame;

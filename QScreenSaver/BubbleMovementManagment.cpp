@@ -2,9 +2,8 @@
 
 #include <ctime>
 
-BubbleMovementManagment::BubbleMovementManagment(const Frame &window_frame, const int movement_interval, QObject *parent) :
+BubbleMovementManagment::BubbleMovementManagment(const int movement_interval, QObject *parent) :
     QObject(parent),
-    _window_frame(window_frame),
     _movement_interval{movement_interval}
 {
     CreateMovementTimer();
@@ -91,4 +90,9 @@ void BubbleMovementManagment::RecalculateBubblesPositions()
     for(auto bubble : _bubble_ptr_list){
         DoNextStep(bubble);
     }
+}
+
+void BubbleMovementManagment::SetFrame(const Frame &win_frame)
+{
+    _window_frame = win_frame;
 }

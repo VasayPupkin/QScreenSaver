@@ -29,13 +29,15 @@ SOURCES += \
         mainwindow.cpp \
     BubbleShape.cpp \
     BubbleMovementManagment.cpp \
-    QBasedTimer.cpp
+    QBasedTimer.cpp \
+    Mediator.cpp
 
 HEADERS += \
         mainwindow.h \
     BubbleShape.h \
     BubbleMovementManagment.h \
-    QBasedTimer.h
+    QBasedTimer.h \
+    Mediator.h
 
 FORMS += \
         mainwindow.ui
