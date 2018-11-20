@@ -5,6 +5,8 @@
 #include <memory>
 #include <QOpenGLWidget>
 
+#include "BubbleShape.h"
+
 using OpenGLWdgtPtr = std::shared_ptr<QOpenGLWidget>;
 
 class OpenGLView : public QObject
@@ -21,6 +23,7 @@ signals:
 
 public slots:
     void Show();
+    void RepaintBubbles();
 
 private:
     OpenGLWdgtPtr _open_GL_widget;

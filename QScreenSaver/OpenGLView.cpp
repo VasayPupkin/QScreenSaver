@@ -9,3 +9,8 @@ void OpenGLView::Show()
 {
     _open_GL_widget.get()->show();
 }
+
+void OpenGLView::RepaintBubbles()
+{
+
+}
