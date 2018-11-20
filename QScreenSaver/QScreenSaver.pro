@@ -30,14 +30,16 @@ SOURCES += \
     BubbleShape.cpp \
     BubbleMovementManagment.cpp \
     QBasedTimer.cpp \
-    Mediator.cpp
+    Mediator.cpp \
+    OpenGLView.cpp
 
 HEADERS += \
         mainwindow.h \
     BubbleShape.h \
     BubbleMovementManagment.h \
     QBasedTimer.h \
-    Mediator.h
+    Mediator.h \
+    OpenGLView.h
 
 FORMS += \
         mainwindow.ui

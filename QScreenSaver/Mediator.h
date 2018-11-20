@@ -3,12 +3,12 @@
 
 #include <QObject>
 #include <memory>
-#include <QOpenGLWidget>
 
 #include "mainwindow.h"
 #include "BubbleMovementManagment.h"
+#include "OpenGLView.h"
 
-using OpenGLWdgtPtr = std::shared_ptr<QOpenGLWidget>;
+using OpenGLViewPtr = std::shared_ptr<OpenGLView>;
 using MainWindowPtr = std::shared_ptr<MainWindow>;
 using BubbleManagerPtr = std::shared_ptr<BubbleMovementManagment>;
 
@@ -31,7 +31,7 @@ private:
     MainWindowPtr _main_window;
     BubbleManagerPtr _bubble_mgr;
     int _movement_interval = 1;
-    OpenGLWdgtPtr _open_GL_widget;
+    OpenGLViewPtr _open_GL_view;
 };
 
 #endif // MEDIATOR_H
