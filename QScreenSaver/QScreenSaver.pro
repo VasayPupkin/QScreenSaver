@@ -31,7 +31,8 @@ SOURCES += \
     BubbleMovementManagment.cpp \
     QBasedTimer.cpp \
     Mediator.cpp \
-    OpenGLView.cpp
+    OpenGLView.cpp \
+    GraphicsView.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -39,7 +40,8 @@ HEADERS += \
     BubbleMovementManagment.h \
     QBasedTimer.h \
     Mediator.h \
-    OpenGLView.h
+    OpenGLView.h \
+    GraphicsView.h
 
 FORMS += \
         mainwindow.ui

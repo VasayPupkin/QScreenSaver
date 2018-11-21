@@ -1,4 +1,4 @@
-#include "BubbleMovementManagment.h"
+﻿#include "BubbleMovementManagment.h"
 
 #include <ctime>
 
@@ -19,14 +19,13 @@ void BubbleMovementManagment::CreateMovementTimer()
 
 BubblePtr BubbleMovementManagment::CreateRndBubble()
 {
-    int radius = GenerateRndValue(MIN_RADIUS, MAX_RADIUS);
-    VectorCoordinate vector_course(GenerateRndValue(MIN_COURSE_VECTOR_VALUE,MAX_COURSE_VECTOR_VALUE),
-                                   GenerateRndValue(MIN_COURSE_VECTOR_VALUE,MAX_COURSE_VECTOR_VALUE));
-    Coordinate centr(10 + radius, 10 + radius);//TODO must be rnd generate
-    int r_color = GenerateRndValue(MIN_COLOR_CODE, MAX_COLOR_CODE);
-    int g_color = GenerateRndValue(MIN_COLOR_CODE, MAX_COLOR_CODE);
-    int b_color = GenerateRndValue(MIN_COLOR_CODE, MAX_COLOR_CODE);
-    QColor bubbleColor(r_color, g_color, b_color);
+//    int radius = GenerateRndValue(MIN_RADIUS, MAX_RADIUS);
+    int radius = 20;
+//    VectorCoordinate vector_course(GenerateRndValue(MIN_COURSE_VECTOR_VALUE,MAX_COURSE_VECTOR_VALUE),
+//                                   GenerateRndValue(MIN_COURSE_VECTOR_VALUE,MAX_COURSE_VECTOR_VALUE));
+    VectorCoordinate vector_course(10,5);
+    Coordinate centr(0 + 2*radius, 0 + 2*radius);//TODO must be rnd generate
+    QColor bubbleColor(static_cast<Qt::GlobalColor>(GenerateRndValue(MIN_COLOR_CODE, MAX_COLOR_CODE)));
     BubblePtr bubble(new BubbleShape(radius, vector_course, centr, bubbleColor));
     return std::move(bubble);
 }
@@ -50,8 +49,8 @@ int BubbleMovementManagment::GenerateRndValue(const int lower_bounde, const int 
 bool BubbleMovementManagment::CheckFrameCollision(BubblePtr bubble_ptr, BarrierType &barrier)
 {
     bool result = false;
-    int delta_top = _window_frame._top - bubble_ptr.get()->get_upper_boundary();
-    int delta_bottom = bubble_ptr.get()->get_lower_boundary() - _window_frame._bottom;
+    int delta_top = _window_frame._bottom - bubble_ptr.get()->get_upper_boundary();//was _top
+    int delta_bottom = bubble_ptr.get()->get_lower_boundary() - _window_frame._top;//was _bottom
     int delta_left = bubble_ptr.get()->get_left_boundary() - _window_frame._left;
     int delta_right = _window_frame._right - bubble_ptr.get()->get_right_boundary();
     //TODO:check the case, when several delta are equal. maybe use multimap
@@ -73,7 +72,7 @@ bool BubbleMovementManagment::CheckFrameCollision(BubblePtr bubble_ptr, BarrierT
     return result;
 }
 
-void BubbleMovementManagment::DoNextStep(BubblePtr bubble_ptr)
+void BubbleMovementManagment::DoNextStep(BubblePtr &bubble_ptr)
 {
     Coordinate centr_coord = bubble_ptr.get()->get_centr_coord();
     centr_coord.first += bubble_ptr.get()->get_course_vector().first;
@@ -90,6 +89,7 @@ void BubbleMovementManagment::RecalculateBubblesPositions()
     for(auto bubble : _bubble_ptr_list){
         DoNextStep(bubble);
     }
+    emit RepaintBubbles(_bubble_ptr_list);
 }
 
 void BubbleMovementManagment::SetFrame(const Frame &win_frame)

@@ -6,10 +6,9 @@
 
 #include "mainwindow.h"
 #include "BubbleMovementManagment.h"
-#include "OpenGLView.h"
+#include "GraphicsView.h"
 
-using OpenGLViewPtr = std::shared_ptr<OpenGLView>;
-using MainWindowPtr = std::shared_ptr<MainWindow>;
+using GraphicsViewPtr = std::shared_ptr<GraphicsView>;
 using BubbleManagerPtr = std::shared_ptr<BubbleMovementManagment>;
 
 class Mediator : public QObject
@@ -28,10 +27,9 @@ signals:
 public slots:
 
 private:
-    MainWindowPtr _main_window;
     BubbleManagerPtr _bubble_mgr;
-    int _movement_interval = 1;
-    OpenGLViewPtr _open_GL_view;
+    int _movement_interval = 30;
+    GraphicsViewPtr _graphics_view;
 };
 
 #endif // MEDIATOR_H

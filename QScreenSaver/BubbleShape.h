@@ -4,9 +4,15 @@
 #include <utility>
 #include <QColor>
 #include <cmath>
+#include <memory>
+#include <list>
+
+class BubbleShape;
 
 using Coordinate = std::pair<int,int>;
 using VectorCoordinate = std::pair<int,int>;
+using BubblePtr = std::shared_ptr<BubbleShape>;
+using BubblePtrList = std::list<BubblePtr>;
 
 enum class BarrierType : uchar
 {

@@ -12,17 +12,10 @@
 
 #define MIN_RADIUS 5
 #define MAX_RADIUS 50
-#define MIN_COURSE 1
-#define MAX_COURSE 359
-#define MIN_COLOR_CODE 0
-#define MAX_COLOR_CODE 255
+#define MIN_COLOR_CODE static_cast<int>(Qt::white)
+#define MAX_COLOR_CODE static_cast<int>(Qt::darkYellow)
 #define MIN_COURSE_VECTOR_VALUE 5
 #define MAX_COURSE_VECTOR_VALUE 30
-
-#define MOVE_DELTA 10
-
-using BubblePtr = std::shared_ptr<BubbleShape>;
-using BubblePtrList = std::list<BubblePtr>;
 
 struct Frame{
     //Y-coordinate
@@ -50,9 +43,10 @@ private:
     static int GenerateRndValue(const int lower_bounde, const int upper_bounde);
 
     bool CheckFrameCollision(BubblePtr bubble_ptr, BarrierType &barrier);
-    void DoNextStep(BubblePtr bubble_ptr);
+    void DoNextStep(BubblePtr &bubble_ptr);
 
 signals:
+    void RepaintBubbles(BubblePtrList &bubble_list);
 
 public slots:
     void RecalculateBubblesPositions();
