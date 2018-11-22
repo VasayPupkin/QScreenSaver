@@ -17,16 +17,6 @@
 #define MIN_COURSE_VECTOR_VALUE 5
 #define MAX_COURSE_VECTOR_VALUE 30
 
-struct Frame{
-    //Y-coordinate
-    int _top;
-    int _bottom;
-    //X-coordinate
-    int _left;
-    int _right;
-    //TODO create default operator =
-};
-
 class BubbleMovementManagment : public QObject
 {
     Q_OBJECT
@@ -42,7 +32,7 @@ private:
 
     static int GenerateRndValue(const int lower_bounde, const int upper_bounde);
 
-    bool CheckFrameCollision(BubblePtr bubble_ptr, BarrierType &barrier);
+    bool CheckFrameCollision(BubblePtr &bubble_ptr, BarrierType &barrier);
     void DoNextStep(BubblePtr &bubble_ptr);
 
 signals:
@@ -50,7 +40,7 @@ signals:
 
 public slots:
     void RecalculateBubblesPositions();
-    void SetFrame(const Frame &win_frame);
+    void SetFrame(Frame &win_frame);
 
 private:
     Frame _window_frame;

@@ -23,11 +23,21 @@ enum class BarrierType : uchar
     RIGHT
 };
 
+struct Frame{
+    //Y-coordinate
+    int _top;
+    int _bottom;
+    //X-coordinate
+    int _left;
+    int _right;
+};
+
 class BubbleShape
 {
 public:
     explicit BubbleShape() = default;
     explicit BubbleShape(const BubbleShape &value) = default;
+//    explicit BubbleShape(BubbleShape &&value) = default;
     BubbleShape(const int radius, const VectorCoordinate &course_vector, const Coordinate &centr_coord, const QColor &color);
 
     void set_radius(const int radius){ _radius = radius;
@@ -39,15 +49,15 @@ public:
                                                        }
     void set_color(const QColor &color){ _color = color; }
 
-    int get_radius() const { return _radius; }
-    VectorCoordinate get_course_vector() const { return _course_vector; }
-    Coordinate get_centr_coord() const { return _centr_coord; }
-    QColor get_color() const { return _color; }
+    int get_radius()                        const { return _radius; }
+    VectorCoordinate get_course_vector()    const { return _course_vector; }
+    Coordinate get_centr_coord()            const { return _centr_coord; }
+    QColor get_color()                      const { return _color; }
 
-    int get_upper_boundary() const { return _upper_boundary; }
-    int get_lower_boundary() const { return _lower_boundary; }
-    int get_left_boundary() const { return _left_boundary; }
-    int get_right_boundary() const { return _right_boundary; }
+    int get_top()                           const { return _top; }
+    int get_bottom()                        const { return _bottom; }
+    int get_left()                          const { return _left; }
+    int get_right()                         const { return _right; }
 
     void change_bubble_course(BarrierType &barrier);
 
@@ -61,11 +71,11 @@ private:
     QColor _color;
 
     //Y-coordinate
-    int _upper_boundary;
-    int _lower_boundary;
+    int _top;
+    int _bottom;
     //X-coordinate
-    int _left_boundary;
-    int _right_boundary;
+    int _left;
+    int _right;
 };
 
 #endif // BUBBLESHAPE_H

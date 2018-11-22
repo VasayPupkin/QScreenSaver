@@ -21,8 +21,8 @@ void BubbleShape::change_bubble_course(BarrierType &barrier)
 
 void BubbleShape::set_boundaryes()
 {
-    _upper_boundary = _centr_coord.second + _radius;
-    _lower_boundary = _centr_coord.second - _radius;
-    _left_boundary = _centr_coord.first - _radius;
-    _right_boundary = _centr_coord.first + _radius;
+    _top = _centr_coord.second - _radius;
+    _bottom = _centr_coord.second + _radius;
+    _left = _centr_coord.first - _radius;
+    _right = _centr_coord.first + _radius;
 }
