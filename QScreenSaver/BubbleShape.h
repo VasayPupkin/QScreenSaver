@@ -30,6 +30,9 @@ struct Frame{
     //X-coordinate
     int _left;
     int _right;
+    //size
+    int _height;
+    int _width;
 };
 
 class BubbleShape

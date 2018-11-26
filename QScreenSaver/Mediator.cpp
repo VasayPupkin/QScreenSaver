@@ -14,6 +14,8 @@ void Mediator::Start()
     win_frame._bottom = _graphics_view.get()->Bottom();
     win_frame._left = _graphics_view.get()->Left();
     win_frame._right = _graphics_view.get()->Right();
+    win_frame._height = _graphics_view.get()->Height();
+    win_frame._width = _graphics_view.get()->Width();
 
     _bubble_mgr.reset(new BubbleMovementManagment(_movement_interval));
     SetConnection();

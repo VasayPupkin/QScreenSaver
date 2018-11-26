@@ -23,14 +23,18 @@ public:
     explicit GraphicsView(QGraphicsView *parent = nullptr);
 
     void Show();
-    int Top()       const { return this->geometry().top(); }
-    int Bottom()    const { return this->geometry().y() + this->geometry().height(); }
-    int Left()      const { return this->geometry().left(); }
-    int Right()     const { return this->geometry().x() + this->geometry().width(); }
+
+    int Height()    const { return this->geometry().height(); }
+    int Width()     const { return this->geometry().width(); }
+    int Top()       const { return (-Height()/2); }
+    int Bottom()    const { return (Height()/2); }
+    int Left()      const { return (-Width()/2); }
+    int Right()     const { return (Width()/2); }
 
 private:
     void CreateObjects();
     void DrawCircle(const BubblePtr &bubble);
+    void DrawTestBubble();
 
 protected:
     void resizeEvent(QResizeEvent *e) override;

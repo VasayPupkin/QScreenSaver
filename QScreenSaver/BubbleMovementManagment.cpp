@@ -18,14 +18,16 @@ void BubbleMovementManagment::CreateMovementTimer()
 
 BubblePtr BubbleMovementManagment::CreateRndBubble()
 {
-//    int radius = GenerateRndValue(MIN_RADIUS, MAX_RADIUS);
-    int radius = 20;
-//    VectorCoordinate vector_course(GenerateRndValue(MIN_COURSE_VECTOR_VALUE,MAX_COURSE_VECTOR_VALUE),
-//                                   GenerateRndValue(MIN_COURSE_VECTOR_VALUE,MAX_COURSE_VECTOR_VALUE));
-    VectorCoordinate vector_course(10,5);
-//    Coordinate centr(GenerateRndValue(_window_frame._left, _window_frame._right),
-//                     GenerateRndValue(_window_frame._top,_window_frame._bottom));
-    Coordinate centr(0,0);//TODO must be rnd generate
+//    static int x = 0;
+//    x += 20;
+    int radius = GenerateRndValue(MIN_RADIUS, MAX_RADIUS);
+//    int radius = 20;
+    VectorCoordinate vector_course(GenerateRndValue(MIN_COURSE_VECTOR_VALUE,MAX_COURSE_VECTOR_VALUE),
+                                   GenerateRndValue(MIN_COURSE_VECTOR_VALUE,MAX_COURSE_VECTOR_VALUE));
+//    VectorCoordinate vector_course(10,10);
+    Coordinate centr(GenerateRndValue(0, _window_frame._width/2),
+                     GenerateRndValue(0,_window_frame._height/2));
+//    Coordinate centr(0,0);//TODO must be rnd generate
     QColor bubbleColor(static_cast<Qt::GlobalColor>(GenerateRndValue(MIN_COLOR_CODE, MAX_COLOR_CODE)));
     BubblePtr bubble(new BubbleShape(radius, vector_course, centr, bubbleColor));
     return std::move(bubble);
@@ -34,7 +36,7 @@ BubblePtr BubbleMovementManagment::CreateRndBubble()
 void BubbleMovementManagment::CreateBubbleList()
 {
     _bubble_ptr_list.push_back(CreateRndBubble());
-//    _bubble_ptr_list.push_back(CreateRndBubble());
+    _bubble_ptr_list.push_back(CreateRndBubble());
 }
 
 void BubbleMovementManagment::Start()
@@ -52,10 +54,11 @@ int BubbleMovementManagment::GenerateRndValue(const int lower_bounde, const int 
 bool BubbleMovementManagment::CheckFrameCollision(BubblePtr &bubble_ptr, BarrierType &barrier)
 {
     bool result = false;
-    int delta_top = bubble_ptr.get()->get_top() - _window_frame._top;//was _top
+    int delta_top = bubble_ptr.get()->get_top() - _window_frame._top;
     int delta_bottom = _window_frame._bottom - bubble_ptr.get()->get_bottom();
     int delta_left = bubble_ptr.get()->get_left() - _window_frame._left;
     int delta_right = _window_frame._right - bubble_ptr.get()->get_right();
+
     //TODO:check the case, when several delta are equal. maybe use multimap
     std::map<int, BarrierType> negativ_map;
     if (delta_top <= 0)
