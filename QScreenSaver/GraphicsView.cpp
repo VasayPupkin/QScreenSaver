@@ -11,15 +11,15 @@ GraphicsView::GraphicsView(QGraphicsView *parent) : QGraphicsView(parent)
 
 void GraphicsView::Show()
 {
-    this->showFullScreen();
+    this->show();
 }
 
 void GraphicsView::CreateObjects()
 {
-//    QRect rect = QApplication::desktop()->screenGeometry();
-//    auto x = rect.width()/2;
-//    auto y = rect.height()/2;
-//    this->setGeometry(x,y,800,600);
+    QRect rect = QApplication::desktop()->screenGeometry();
+    auto x = rect.width()/2;
+    auto y = rect.height()/2;
+    this->setGeometry(0,0,800,600);
 
     _scene.reset(new QGraphicsScene());
     this->setScene(_scene.get());

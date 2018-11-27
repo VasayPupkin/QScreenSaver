@@ -10,7 +10,7 @@
 
 #include "BubbleShape.h"
 
-#define MIN_RADIUS 5
+#define MIN_RADIUS 10
 #define MAX_RADIUS 50
 #define MIN_COLOR_CODE static_cast<int>(Qt::white)
 #define MAX_COLOR_CODE static_cast<int>(Qt::darkYellow)
