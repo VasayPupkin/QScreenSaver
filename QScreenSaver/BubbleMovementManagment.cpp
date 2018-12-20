@@ -36,10 +36,10 @@ BubblePtr BubbleMovementManagment::CreateRndBubble()
 void BubbleMovementManagment::CreateBubbleList()
 {
     _bubble_ptr_list.push_back(CreateRndBubble());
-    _bubble_ptr_list.push_back(CreateRndBubble());
-    _bubble_ptr_list.push_back(CreateRndBubble());
-    _bubble_ptr_list.push_back(CreateRndBubble());
-    _bubble_ptr_list.push_back(CreateRndBubble());
+//    _bubble_ptr_list.push_back(CreateRndBubble());
+//    _bubble_ptr_list.push_back(CreateRndBubble());
+//    _bubble_ptr_list.push_back(CreateRndBubble());
+//    _bubble_ptr_list.push_back(CreateRndBubble());
 }
 
 void BubbleMovementManagment::Start()
@@ -53,7 +53,7 @@ int BubbleMovementManagment::GenerateRndValue(const int lower_bounde, const int 
     static unsigned int pseudo_rnd = 20;
     pseudo_rnd += 20;
     srand(time(NULL) + pseudo_rnd);
-    return(rand() % upper_bounde + lower_bounde);
+    return(lower_bounde + (rand() % (upper_bounde - lower_bounde + 1)));
 }
 
 bool BubbleMovementManagment::CheckFrameCollision(BubblePtr &bubble_ptr, BarrierType &barrier)
