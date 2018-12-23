@@ -11,7 +11,7 @@ GraphicsView::GraphicsView(QGraphicsView *parent) : QGraphicsView(parent)
 
 void GraphicsView::Show()
 {
-    this->show();
+    this->showFullScreen();
 }
 
 void GraphicsView::CreateObjects()

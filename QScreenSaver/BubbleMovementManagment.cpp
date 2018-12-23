@@ -1,6 +1,7 @@
 #include "BubbleMovementManagment.h"
 
 #include <ctime>
+#include <assert.h>
 
 BubbleMovementManagment::BubbleMovementManagment(const int movement_interval, QObject *parent) :
     QObject(parent),
@@ -24,7 +25,9 @@ BubblePtr BubbleMovementManagment::CreateRndBubble()
 //    int radius = 20;
     VectorCoordinate vector_course(GenerateRndValue(MIN_COURSE_VECTOR_VALUE,MAX_COURSE_VECTOR_VALUE),
                                    GenerateRndValue(MIN_COURSE_VECTOR_VALUE,MAX_COURSE_VECTOR_VALUE));
-//    VectorCoordinate vector_course(0,0);
+    assert(vector_course.first != 0 && "vetor_course.x == 0");
+    assert(vector_course.second != 0 && "vetor_course.y == 0");
+    //    VectorCoordinate vector_course(0,0);
     Coordinate centr(GenerateRndValue(0, _window_frame._width/2),
                      GenerateRndValue(0,_window_frame._height/2));
 //    Coordinate centr(0,0);//TODO must be rnd generate
@@ -50,7 +53,7 @@ void BubbleMovementManagment::Start()
 
 int BubbleMovementManagment::GenerateRndValue(const int lower_bounde, const int upper_bounde)
 {
-    static unsigned int pseudo_rnd = 20;
+    static unsigned int pseudo_rnd = rand();
     pseudo_rnd += 20;
     srand(time(NULL) + pseudo_rnd);
     return(lower_bounde + (rand() % (upper_bounde - lower_bounde + 1)));
@@ -86,10 +89,10 @@ bool BubbleMovementManagment::CheckFrameCollision(BubblePtr &bubble_ptr, Barrier
 void BubbleMovementManagment::DoNextStep(BubblePtr &bubble_ptr)
 {
     Coordinate centr_coord = bubble_ptr.get()->get_centr_coord();
-//    centr_coord.first += bubble_ptr.get()->get_course_vector().first;
-//    centr_coord.second += bubble_ptr.get()->get_course_vector().second;
-    centr_coord.first += bubble_ptr.get()->get_course_vector().first%5;
-    centr_coord.second += bubble_ptr.get()->get_course_vector().second%5;
+    centr_coord.first += bubble_ptr.get()->get_course_vector().first;
+    centr_coord.second += bubble_ptr.get()->get_course_vector().second;
+//    centr_coord.first += bubble_ptr.get()->get_course_vector().first%5;
+//    centr_coord.second += bubble_ptr.get()->get_course_vector().second%5;
     bubble_ptr.get()->set_centr_coord(centr_coord);
     BarrierType barrier;
     if (!CheckFrameCollision(bubble_ptr, barrier)) {
