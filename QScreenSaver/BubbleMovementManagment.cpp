@@ -89,10 +89,15 @@ bool BubbleMovementManagment::CheckFrameCollision(BubblePtr &bubble_ptr, Barrier
 void BubbleMovementManagment::DoNextStep(BubblePtr &bubble_ptr)
 {
     Coordinate centr_coord = bubble_ptr.get()->get_centr_coord();
-    centr_coord.first += bubble_ptr.get()->get_course_vector().first;
-    centr_coord.second += bubble_ptr.get()->get_course_vector().second;
-//    centr_coord.first += bubble_ptr.get()->get_course_vector().first%5;
-//    centr_coord.second += bubble_ptr.get()->get_course_vector().second%5;
+    float divider{0.25};
+    float lambda = bubble_ptr.get()->get_course_vector_module()/(bubble_ptr.get()->get_radius()/divider);
+    VectorCoordinate move_vector;
+    move_vector.first = static_cast<int>(ceilf(bubble_ptr.get()->get_course_vector().first*lambda));
+    move_vector.second = static_cast<int>(ceilf(bubble_ptr.get()->get_course_vector().second*lambda));
+    centr_coord.first += move_vector.first;
+    centr_coord.second += move_vector.second;
+//    centr_coord.first += bubble_ptr.get()->get_course_vector().first;
+//    centr_coord.second += bubble_ptr.get()->get_course_vector().second;
     bubble_ptr.get()->set_centr_coord(centr_coord);
     BarrierType barrier;
     if (!CheckFrameCollision(bubble_ptr, barrier)) {

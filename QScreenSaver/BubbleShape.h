@@ -1,4 +1,4 @@
-#ifndef BUBBLESHAPE_H
+﻿#ifndef BUBBLESHAPE_H
 #define BUBBLESHAPE_H
 
 #include <utility>
@@ -54,6 +54,7 @@ public:
 
     int get_radius()                        const { return _radius; }
     VectorCoordinate get_course_vector()    const { return _course_vector; }
+    float get_course_vector_module()        const { return _course_vector_module; }
     Coordinate get_centr_coord()            const { return _centr_coord; }
     QColor get_color()                      const { return _color; }
 
@@ -66,10 +67,12 @@ public:
 
 private:
     void set_boundaryes();
+    void calc_course_vector_module();
 
 private:
     int _radius;
     VectorCoordinate _course_vector;
+    float _course_vector_module;
     Coordinate _centr_coord;
     QColor _color;
 

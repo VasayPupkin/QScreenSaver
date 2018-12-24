@@ -7,6 +7,7 @@ BubbleShape::BubbleShape(const int radius, const VectorCoordinate &course_vector
     _color(color)
 {
     set_boundaryes();
+    calc_course_vector_module();
 }
 
 void BubbleShape::change_bubble_course(BarrierType &barrier)
@@ -17,6 +18,7 @@ void BubbleShape::change_bubble_course(BarrierType &barrier)
     else if (barrier == BarrierType::LEFT || barrier == BarrierType::RIGHT) {
         _course_vector.first = -_course_vector.first;
     }
+    calc_course_vector_module();
 }
 
 void BubbleShape::set_boundaryes()
@@ -25,4 +27,9 @@ void BubbleShape::set_boundaryes()
     _bottom = _centr_coord.second + _radius;
     _left = _centr_coord.first - _radius;
     _right = _centr_coord.first + _radius;
+}
+
+void BubbleShape::calc_course_vector_module()
+{
+    _course_vector_module = fabsf(sqrtf(pow(_course_vector.first,2.0) + pow(_course_vector.second,2.0)));
 }
