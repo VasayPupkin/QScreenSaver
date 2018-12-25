@@ -8,7 +8,6 @@ Mediator::Mediator(QObject *parent) : QObject(parent)
 void Mediator::Start()
 {
     _graphics_view.get()->Show();
-
     Frame win_frame;
     win_frame._top = _graphics_view.get()->Top();
     win_frame._bottom = _graphics_view.get()->Bottom();

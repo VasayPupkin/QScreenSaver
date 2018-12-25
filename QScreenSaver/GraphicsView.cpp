@@ -16,10 +16,13 @@ void GraphicsView::Show()
 
 void GraphicsView::CreateObjects()
 {
-//    QRect rect = QApplication::desktop()->screenGeometry();
-//    auto x = rect.width()/2;
-//    auto y = rect.height()/2;
-//    this->setGeometry(0,0,800,600);
+    QRect rect = QApplication::desktop()->screenGeometry();
+    int w = 600;
+    int h = 600;
+    auto x = rect.width()/2;
+    auto y = rect.height() - h;
+
+    this->setGeometry(x,y,w,h);
 
     _scene.reset(new QGraphicsScene());
     this->setScene(_scene.get());
@@ -45,6 +48,7 @@ void GraphicsView::DrawCircle(const BubblePtr &bubble)
 
 void GraphicsView::DrawTestBubble()
 {
+    //set focus to item with coords (0,0)
     static int delta = 0;
     delta += 1;
     BubbleShape bubble(40,VectorCoordinate(0,0),Coordinate(delta,delta),Qt::blue);
