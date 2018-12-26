@@ -35,6 +35,7 @@ private:
     void CreateObjects();
     void DrawCircle(const BubblePtr &bubble);
     void DrawTestBubble();
+    void CenteredOnPseudoItem();
 
 protected:
     void resizeEvent(QResizeEvent *e) override;

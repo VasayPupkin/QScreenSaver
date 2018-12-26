@@ -3,6 +3,8 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QScrollBar>
+#include <QList>
+#include <QGraphicsItem>
 
 GraphicsView::GraphicsView(QGraphicsView *parent) : QGraphicsView(parent)
 {
@@ -61,6 +63,19 @@ void GraphicsView::DrawTestBubble()
     _scene.get()->addEllipse(x,y,w,h,pen,brush);
 }
 
+void GraphicsView::CenteredOnPseudoItem()
+{
+    QBrush brush(Qt::red, Qt::BrushStyle::SolidPattern);
+    QPen pen(brush, 1);
+    _scene.get()->addEllipse(0,0,10,10,pen,brush);
+    QList<QGraphicsItem*> list = _scene.get()->items();
+    QGraphicsItem *item = _scene.get()->items().last();
+//    item->setFlag(QGraphicsItem::GraphicsItemFlag::ItemIsFocusable);
+    item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemIsSelectable);
+//    _scene.get()->setFocusItem(item);
+    this->centerOn(item);
+}
+
 void GraphicsView::resizeEvent(QResizeEvent *e)
 {
     if (e->type() == QResizeEvent::Resize) {
@@ -78,8 +93,10 @@ void GraphicsView::resizeEvent(QResizeEvent *e)
 void GraphicsView::RepaintBubbles(BubblePtrList &bubble_list)
 {
     _scene.get()->clear();
+//    CenteredOnPseudoItem();
     for(auto bubble : bubble_list){
         DrawCircle(bubble);
 //        DrawTestBubble();
     }
+    CenteredOnPseudoItem();
 }
