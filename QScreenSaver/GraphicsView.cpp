@@ -5,6 +5,7 @@
 #include <QScrollBar>
 #include <QList>
 #include <QGraphicsItem>
+#include <cmath>
 
 GraphicsView::GraphicsView(QGraphicsView *parent) : QGraphicsView(parent)
 {
@@ -39,13 +40,20 @@ void GraphicsView::CreateObjects()
 
 void GraphicsView::DrawCircle(const BubblePtr &bubble)
 {
-    int x = bubble.get()->get_centr_coord().first;
-    int y = bubble.get()->get_centr_coord().second;
-    int w = bubble.get()->get_radius();
+    //move all math operations at BubbleShape class and implement geters for them
+    int radius = bubble.get()->get_radius();
+    int w = static_cast<int>(ceil((radius*2)/sqrt(2)));
     int h = w;
+    int x = bubble.get()->get_centr_coord().first - w/2;
+    int y = bubble.get()->get_centr_coord().second - w/2;
+
     QBrush brush(bubble.get()->get_color(), Qt::BrushStyle::SolidPattern);
-    QPen pen(brush, w);
+    QPen pen(brush, radius/(sqrt(2)));
     _scene.get()->addEllipse(x,y,w,h,pen,brush);
+
+//    QBrush rectBrush(Qt::red);
+//    QPen rectPen(rectBrush, 1);
+//    _scene.get()->addRect(x,y,w,h,rectPen,rectBrush);
 }
 
 void GraphicsView::DrawTestBubble()
@@ -66,14 +74,15 @@ void GraphicsView::DrawTestBubble()
 void GraphicsView::CenteredOnPseudoItem()
 {
     QBrush brush(Qt::red, Qt::BrushStyle::SolidPattern);
+    QBrush lineBrush(Qt::green, Qt::BrushStyle::SolidPattern);
     QPen pen(brush, 1);
-    _scene.get()->addEllipse(0,0,10,10,pen,brush);
-    QList<QGraphicsItem*> list = _scene.get()->items();
+    QPen linePen(lineBrush, 1);
+    _scene.get()->addLine(QLineF(-300,0,300,0), linePen);
+    _scene.get()->addLine(QLineF(0,-300,0,300), linePen);
+    _scene.get()->addEllipse(0,0,1,1,pen,brush);
     QGraphicsItem *item = _scene.get()->items().last();
-//    item->setFlag(QGraphicsItem::GraphicsItemFlag::ItemIsFocusable);
-    item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemIsSelectable);
-//    _scene.get()->setFocusItem(item);
-    this->centerOn(item);
+    item->setPos(item->x(),item->y());
+    this->setSceneRect(item->sceneBoundingRect());
 }
 
 void GraphicsView::resizeEvent(QResizeEvent *e)

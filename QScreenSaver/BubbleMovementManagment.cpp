@@ -22,7 +22,7 @@ BubblePtr BubbleMovementManagment::CreateRndBubble()
 //    static int x = 0;
 //    x += 20;
 //    int radius = GenerateRndValue(MIN_RADIUS, MAX_RADIUS);
-    int radius = 20;
+    int radius = 40;
 //    VectorCoordinate vector_course(GenerateRndValue(MIN_COURSE_VECTOR_VALUE,MAX_COURSE_VECTOR_VALUE),
 //                                   GenerateRndValue(MIN_COURSE_VECTOR_VALUE,MAX_COURSE_VECTOR_VALUE));
 //    assert(vector_course.first != 0 && "vetor_course.x == 0");
@@ -32,7 +32,7 @@ BubblePtr BubbleMovementManagment::CreateRndBubble()
 //                     GenerateRndValue(0,_window_frame._height/2));
     static int d = 0;
     Coordinate centr(0+d,0+d);//TODO must be rnd generate
-    d += 200;
+    d += 300;
 
 //    QColor bubbleColor(static_cast<Qt::GlobalColor>(GenerateRndValue(MIN_COLOR_CODE, MAX_COLOR_CODE)));
     QColor bubbleColor(Qt::GlobalColor::darkBlue);
