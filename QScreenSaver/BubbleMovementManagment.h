@@ -15,7 +15,7 @@
 #define MIN_COLOR_CODE static_cast<int>(Qt::white)
 #define MAX_COLOR_CODE static_cast<int>(Qt::darkYellow)
 #define MIN_COURSE_VECTOR_VALUE 5
-#define MAX_COURSE_VECTOR_VALUE 30
+#define MAX_COURSE_VECTOR_VALUE 10
 
 class BubbleMovementManagment : public QObject
 {

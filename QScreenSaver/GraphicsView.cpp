@@ -15,6 +15,7 @@ GraphicsView::GraphicsView(QGraphicsView *parent) : QGraphicsView(parent)
 void GraphicsView::Show()
 {
     this->show();
+    SetFrameParametrs();
 }
 
 void GraphicsView::CreateObjects()
@@ -85,17 +86,22 @@ void GraphicsView::CenteredOnPseudoItem()
     this->setSceneRect(item->sceneBoundingRect());
 }
 
+void GraphicsView::SetFrameParametrs()
+{
+    Frame wdg_frame;
+    wdg_frame._height = Height();
+    wdg_frame._width = Width();
+    wdg_frame._top = Top();
+    wdg_frame._bottom = Bottom();
+    wdg_frame._left = Left();
+    wdg_frame._right = Right();
+    emit GraphicsViewResize(wdg_frame);
+}
+
 void GraphicsView::resizeEvent(QResizeEvent *e)
 {
     if (e->type() == QResizeEvent::Resize) {
-        Frame wdg_frame;
-        wdg_frame._height = Height();
-        wdg_frame._width = Width();
-        wdg_frame._top = Top();
-        wdg_frame._bottom = Bottom();
-        wdg_frame._left = Left();
-        wdg_frame._right = Right();
-        emit GraphicsViewResize(wdg_frame);
+        SetFrameParametrs();
     }
 }
 
