@@ -40,25 +40,19 @@ void GraphicsView::CreateObjects()
 
 void GraphicsView::DrawCircle(const BubblePtr &bubble)
 {
-    //move all math operations at BubbleShape class and implement geters for them
-    int radius = bubble.get()->get_radius();
-    int w = static_cast<int>(ceil((radius*2)/sqrt(2)));
+    int w = bubble.get()->get_rect_side();
     int h = w;
-    int x = bubble.get()->get_centr_coord().first - w/2;
-    int y = bubble.get()->get_centr_coord().second - w/2;
+    int x = bubble.get()->get_centr_coord().first - bubble.get()->get_half_rect_side();
+    int y = bubble.get()->get_centr_coord().second - bubble.get()->get_half_rect_side();
 
     QBrush brush(bubble.get()->get_color(), Qt::BrushStyle::SolidPattern);
-    QPen pen(brush, radius/(sqrt(2)));
+    QPen pen(brush, bubble.get()->get_pen_width());
     _scene.get()->addEllipse(x,y,w,h,pen,brush);
-
-//    QBrush rectBrush(Qt::red);
-//    QPen rectPen(rectBrush, 1);
-//    _scene.get()->addRect(x,y,w,h,rectPen,rectBrush);
 }
 
 void GraphicsView::DrawTestBubble()
 {
-    //set focus to item with coords (0,0)
+
     static int delta = 0;
     delta += 1;
     BubbleShape bubble(40,VectorCoordinate(0,0),Coordinate(delta,delta),Qt::blue);
@@ -73,15 +67,21 @@ void GraphicsView::DrawTestBubble()
 
 void GraphicsView::CenteredOnPseudoItem()
 {
-    QBrush brush(Qt::red, Qt::BrushStyle::SolidPattern);
+    //center lines
     QBrush lineBrush(Qt::green, Qt::BrushStyle::SolidPattern);
-    QPen pen(brush, 1);
     QPen linePen(lineBrush, 1);
-    _scene.get()->addLine(QLineF(-300,0,300,0), linePen);
-    _scene.get()->addLine(QLineF(0,-300,0,300), linePen);
+    int half_height = this->geometry().height()/2;
+    int half_width = this->geometry().width()/2;
+    _scene.get()->addLine(QLineF(-half_width,0,half_width,0), linePen);
+    _scene.get()->addLine(QLineF(0,-half_height,0,half_height), linePen);
+
+    //center object
+    //TODO : change color from red to black
+    QBrush brush(Qt::red, Qt::BrushStyle::SolidPattern);
+    QPen pen(brush, 1);
     _scene.get()->addEllipse(0,0,1,1,pen,brush);
     QGraphicsItem *item = _scene.get()->items().last();
-    item->setPos(item->x(),item->y());
+    item->setPos(item->x(), item->y());
     this->setSceneRect(item->sceneBoundingRect());
 }
 
@@ -102,7 +102,6 @@ void GraphicsView::resizeEvent(QResizeEvent *e)
 void GraphicsView::RepaintBubbles(BubblePtrList &bubble_list)
 {
     _scene.get()->clear();
-//    CenteredOnPseudoItem();
     for(auto bubble : bubble_list){
         DrawCircle(bubble);
 //        DrawTestBubble();

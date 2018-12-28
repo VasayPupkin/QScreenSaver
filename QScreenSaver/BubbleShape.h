@@ -1,8 +1,9 @@
 ﻿#ifndef BUBBLESHAPE_H
 #define BUBBLESHAPE_H
 
-#include <utility>
 #include <QColor>
+
+#include <utility>
 #include <cmath>
 #include <memory>
 #include <list>
@@ -44,6 +45,7 @@ public:
     BubbleShape(const int radius, const VectorCoordinate &course_vector, const Coordinate &centr_coord, const QColor &color);
 
     void set_radius(const int radius){ _radius = radius;
+                                       calc_bubble_geometry();
                                        set_boundaryes();
                                      }
     void set_course_vector(const VectorCoordinate &course_vector){ _course_vector = course_vector;}
@@ -53,6 +55,11 @@ public:
     void set_color(const QColor &color){ _color = color; }
 
     int get_radius()                        const { return _radius; }
+    int get_diameter()                      const { return _diameter; }
+    int get_rect_side()                     const { return _rect_side; }
+    int get_half_rect_side()                const { return _half_rect_side; }
+    int get_pen_width()                     const { return _pen_width; }
+
     VectorCoordinate get_course_vector()    const { return _course_vector; }
     float get_course_vector_module()        const { return _course_vector_module; }
     Coordinate get_centr_coord()            const { return _centr_coord; }
@@ -68,9 +75,14 @@ public:
 private:
     void set_boundaryes();
     void calc_course_vector_module();
+    void calc_bubble_geometry();
 
 private:
     int _radius;
+    int _diameter;
+    int _rect_side;
+    int _half_rect_side;
+    int _pen_width;
     VectorCoordinate _course_vector;
     float _course_vector_module;
     Coordinate _centr_coord;
