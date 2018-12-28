@@ -32,7 +32,8 @@ BubblePtr BubbleMovementManagment::CreateRndBubble()
 //                     GenerateRndValue(0,_window_frame._height/2));
     static int d = 0;
     Coordinate centr(0+d,0+d);//TODO must be rnd generate
-    d += 300;
+//    Coordinate centr(300,300);//TODO must be rnd generate
+    d -= 300;
 
 //    QColor bubbleColor(static_cast<Qt::GlobalColor>(GenerateRndValue(MIN_COLOR_CODE, MAX_COLOR_CODE)));
     QColor bubbleColor(Qt::GlobalColor::darkBlue);

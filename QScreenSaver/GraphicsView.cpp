@@ -102,9 +102,10 @@ void GraphicsView::resizeEvent(QResizeEvent *e)
 void GraphicsView::RepaintBubbles(BubblePtrList &bubble_list)
 {
     _scene.get()->clear();
+    CenteredOnPseudoItem();
     for(auto bubble : bubble_list){
         DrawCircle(bubble);
 //        DrawTestBubble();
     }
-    CenteredOnPseudoItem();
+//    CenteredOnPseudoItem();
 }
